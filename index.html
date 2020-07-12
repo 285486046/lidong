@@ -8,6 +8,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
   <style type="text/css">
+          .fondColor {color: #FF9900;}
 
   </style>
 
@@ -33,44 +34,77 @@
           </li>
         </ul>
         <span class="navbar-text">
-          Navbar text with an inline element
+          
         </span>
       </div>
     </nav>
- 
-      <div class="row">
-        <div class="col-md-6">
+   
+      <div class="row" >
+        <div class="col-md-5" style="margin-top:41px;" id="sqlpage">
 
             <form>
               <div class="form-group">
-                <label for="exampleFormControlTextarea1">实体表SQL</label>
-                <textarea class="form-control" id="sql_val" rows="8"></textarea>
+                <textarea class="form-control" id="sql_val" rows="16" placeholder="请输入SQL"></textarea>
               </div>
             </form>
 
+      <div style="text-align:right">
+                <button id="sql_submit" type="button" class="btn btn-outline-primary btn-sm" >生成代码</button>
+      </div>
 
-          <button id="sql_submit" type="button" class="btn btn-outline-primary btn-sm"  >生成代码</button>
+   </div>
+ <div class="col-md-7" id="codepage">
+      <ul class="nav justify-content-end">
+      <li class="nav-item">
+        <a class="nav-link active fondColor" href="#" id="entityButton">Entity</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#" id="dtoButton">Dto</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#" id="entity2dtoButton">Entity转Dto</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#" id="dto2formButton">Dto转Form</a>
+      </li>
+    </ul>
+    
+
+        <div class="col-md-12">
+               
+                  <div class="result_entity">
+                  <!-- <label for="exampleFormControlTextarea1">Entity</label>-->
+                     <textarea class="form-control" id="entity_code" rows="16"></textarea>
+                  </div>
+                
+                <!--style="display:none"> <!-->
+                
+                
+                  <div class="result_dto">
+                  <!--  <label for="exampleFormControlTextarea1">Dto</label>-->
+                      <textarea class="form-control" id="dto_code" rows="16"></textarea>
+                  </div>
+              
+                
+                  <div class="result_entity_dto">
+                 <!--    <label for="exampleFormControlTextarea1">Entity 转 Dto</label>-->
+                      <textarea class="form-control" id="entity_to_dto_code" rows="16"></textarea>
+                  </div>
+          
+
+               
+                  <div class="result_dto_form">
+                   <!--  <label for="exampleFormControlTextarea1">Dto 转 Form</label>-->
+                      <textarea class="form-control" id="dto_to_form_code" rows="16"></textarea>
+                  </div>
+         
 
 
         </div>
-        <div class="col-md-6">
-                 <form  id="result_entity_form">
-                  <div class="result_entity_form">
-                    <label for="exampleFormControlTextarea1">实体</label>
-                     <textarea class="form-control" id="entity_code" rows="8"></textarea>
-                  </div>
-                </form>
-                 <form style="display:none" id="result_fill_form">
-                  <div class="result_fill_form">
-                    <label for="exampleFormControlTextarea1">fill方法</label>
-                      <textarea class="form-control" id="fill_code" rows="8"></textarea>
-                  </div>
-                </form>
-
-        
 
 
-        </div>
+ </div>
+
       </div>
       </div>
     
@@ -79,15 +113,80 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
     <script type="text/javascript">
         $(function(){
+          $("#sqlpage").addClass("col-md-12");
+          $("#codepage").hide();
+          $(".result_dto").hide();
+          $(".result_entity_dto").hide();
+          $(".result_dto_form").hide();
+       
+          $("#entityButton").click(function(){
+            $(".result_entity").show();
+            $(".result_dto").hide();
+             $(".result_entity_dto").hide();
+              $(".result_dto_form").hide();
+
+            $("#entityButton").addClass("fondColor");
+            $("#dtoButton").removeClass("fondColor");
+            $("#entity2dtoButton").removeClass("fondColor");
+            $("#dto2formButton").removeClass("fondColor");  
+          });
+
+           $("#dtoButton").click(function(){
+            $(".result_dto").show();
+             $(".result_entity").hide();
+             $(".result_entity_dto").hide();
+              $(".result_dto_form").hide();
+
+            $("#entityButton").removeClass("fondColor");
+            $("#dtoButton").addClass("fondColor");
+            $("#entity2dtoButton").removeClass("fondColor");
+            $("#dto2formButton").removeClass("fondColor");  
+          });
+
+           $("#entity2dtoButton").click(function(){
+            $(".result_entity_dto").show();
+             $(".result_entity").hide();
+            $(".result_dto").hide();
+              $(".result_dto_form").hide();
+
+            $("#entityButton").removeClass("fondColor");
+            $("#dtoButton").removeClass("fondColor");
+            $("#entity2dtoButton").addClass("fondColor");
+            $("#dto2formButton").removeClass("fondColor");  
+          });
+
+          $("#dto2formButton").click(function(){
+            $(".result_dto_form").show();
+             $(".result_entity").hide();
+            $(".result_dto").hide();
+             $(".result_entity_dto").hide();
+
+
+            $("#entityButton").removeClass("fondColor");
+            $("#dtoButton").removeClass("fondColor");
+            $("#entity2dtoButton").removeClass("fondColor");
+            $("#dto2formButton").addClass("fondColor");  
+          });
+
+
+         
 
                  $('#sql_submit').click(function() {
-
-                    var sqlVal=$("#sql_val").val();
+                   var sqlVal=$("#sql_val").val();
                     if(sqlVal.trim()==""){
                       alert("请输入sql");
+                      return;
                     }
+
+                  $("#sqlpage").removeClass();
+
+                   $("#sqlpage").addClass("col-md-5");
+
+                     $("#codepage").show();
+
                     var lineVals=sqlVal.split(/[\r\n]/);
                    
                   // alert(sqlVal);
@@ -95,12 +194,15 @@
                  // $("#entity_code").val(tableName);
                   var columArr=getColumArr(sqlVal);
                   createEntity(tableName,columArr);
+                  createDto(tableName,columArr);
+                  createEntityToDto(tableName,columArr);
+                   createDtoToForm(tableName,columArr);
                 // alert(columArr);
               });
 
        });
 
-           //查找字段
+           //生成实体代码
         function createEntity(tableName,columArr) {
             var code="@EntityInfo(dbName = \"\", tableName =  \""+tableName+"\", useCache = false) \r\n";
             code=code+"public class "+formatEntityName(tableName)+" extends BaseEntity {\r\n"
@@ -137,6 +239,84 @@
             $("#entity_code").val(code);
         }
 
+    //生成Dto
+        function createDto(tableName,columArr) {
+            var code="public class "+formatDtoName(tableName)+" extends BaseDto {\r\n"
+            
+            for(var i=0;i<columArr.length-1;i++){
+             
+              var columName=columArr[i].name;
+              var columType=columArr[i].type;
+              var columRemark=columArr[i].remark;
+              code=code+"/** "+columRemark+" */ \r\n";
+              code=code+"private "+changeType(columType)+" "+formatTuofeng(columName)+";\r\n";
+              
+            }
+             for(var i=0;i<columArr.length-1;i++){
+             
+              var columName=columArr[i].name;
+              var columType=columArr[i].type;
+              var columRemark=columArr[i].remark;
+              var firstCode=columName.trim().substring(0,1);
+              var newStr=firstCode.toUpperCase()+formatTuofeng(columName.substring(1));
+              var tuofengStr=formatTuofeng(columName);
+              code=code+"public "+changeType(columType)+" get"+newStr+"(){ return "+tuofengStr+";}\r\n";
+               code=code+"public void"+" set"+newStr+"("+changeType(columType)+" "+tuofengStr+"){ this."+tuofengStr+"="+tuofengStr+";}\r\n";
+             
+            }
+
+            code=code+"}";
+            $("#dto_code").val(code);
+        }
+
+        //生成entity转dto
+        function createEntityToDto(tableName,columArr) {
+            var code="private "+formatDtoName(tableName)+" fill"+formatDtoName(tableName)+"("+formatEntityName(tableName)+" entity ){\r\n";
+
+            code=code+"if(entity==null){\r\n";
+            code=code+"return null;\r\n}\r\n";
+            code=code+formatDtoName(tableName)+" dto=new "+formatDtoName(tableName)+"();\r\n";
+
+          
+             for(var i=0;i<columArr.length-1;i++){
+             
+              var columName=columArr[i].name;
+              var columType=columArr[i].type;
+              var columRemark=columArr[i].remark;
+              var firstCode=columName.trim().substring(0,1);
+              var newStr=firstCode.toUpperCase()+formatTuofeng(columName.substring(1));
+              var newNameStr=firstCode.toUpperCase()+columName.substring(1);
+              var tuofengStr=formatTuofeng(columName);
+                code=code+"dto.set"+newStr+"(entity.get"+newNameStr+"());\r\n";
+            }
+            code=code+"return dto;\r\n}";
+     
+            $("#entity_to_dto_code").val(code);
+        }
+
+             //生成dto转Form
+        function createDtoToForm(tableName,columArr) {
+            var code="private "+formatFormName(tableName)+" fill"+formatFormName(tableName)+"("+formatDtoName(tableName)+" dto ){\r\n";
+
+            code=code+"if(dto==null){\r\n";
+            code=code+"return null;\r\n}\r\n";
+            code=code+formatDtoName(tableName)+" form=new "+formatDtoName(tableName)+"();\r\n";
+
+          
+             for(var i=0;i<columArr.length-1;i++){
+             
+              var columName=columArr[i].name;
+              var columType=columArr[i].type;
+              var columRemark=columArr[i].remark;
+              var firstCode=columName.trim().substring(0,1);
+              var newStr=firstCode.toUpperCase()+formatTuofeng(columName.substring(1));
+              var tuofengStr=formatTuofeng(columName);
+                code=code+"form.set"+newStr+"(dto.get"+newStr+"());\r\n";
+            }
+            code=code+"return form;\r\n}";
+     
+            $("#dto_to_form_code").val(code);
+        }
 
      function changeType(str) {
          
@@ -158,19 +338,34 @@
             var newStr=firstCode.toUpperCase()+str.substring(1);
             //alert(newStr);
             return formatTuofeng(newStr)+"Entity";
-        
-            
+        }
+
+        function formatDtoName(str) {
+         
+            var firstCode=str.trim().substring(0,1);
+            var newStr=firstCode.toUpperCase()+str.substring(1);
+            //alert(newStr);
+            return formatTuofeng(newStr)+"Dto";
+        }
+        function formatFormName(str) {
+         
+            var firstCode=str.trim().substring(0,1);
+            var newStr=firstCode.toUpperCase()+str.substring(1);
+            //alert(newStr);
+            return formatTuofeng(newStr)+"Form";
         }
 
           function formatTuofeng(str) {
          var result="";
          var arr=  str.split("_");
+       
          if (arr.length==0) {
-          return result;
+          return str;
          };
-         for(var i=0;i<arr.length-1;i++){
+         for(var i=0;i<arr.length;i++){
             if(i==0){
               result=result+arr[i];
+              
               continue;
 
             }
@@ -178,6 +373,7 @@
               result=result+firstCode.toUpperCase()+arr[i].substring(1);;
 
          };
+  
         return result;
             
         }
